@@ -74,7 +74,7 @@ public class TripBooking
         this.distanceInKm = distanceInKm;
     }
 
-    public TripStatus getTripStatus() {
+    public TripStatus getStatus() {
         return tripStatus;
     }
 
