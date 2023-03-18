@@ -29,11 +29,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public void register(Customer customer) {
 		//Save the customer in database
-		Customer customer1 = new Customer();
-		customer1.setMobile(customer.getMobile());
-		customer1.setPassword(customer.getPassword());
-
-		customerRepository2.save(customer1);
+		customerRepository2.save(customer);
 	}
 
 	@Override
@@ -113,6 +109,11 @@ public class CustomerServiceImpl implements CustomerService {
 
 		TripBooking tripBooking = tripBookingRepository2.findById(tripId).get();
 		tripBooking.setStatus(TripStatus.CANCELED);
+//		tripBooking.setToLocation(null);
+//		tripBooking.setFromLocation(null);
+		tripBooking.setBill(0);
+		tripBooking.setDistanceInKm(0);
+
 
 
 //		Customer customer = tripBooking.getCustomer();
