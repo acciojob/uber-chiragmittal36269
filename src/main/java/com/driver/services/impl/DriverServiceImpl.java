@@ -42,13 +42,14 @@ public class DriverServiceImpl implements DriverService {
 
 		Driver driver = driverRepository3.findById(driverId).get();
 
+		// no need to save the cab and no need to setDriver to null because
+		// driver is the parent, and it can handle all the things
 //		Cab cab = cabRepository3.findById(driver.getCab().getId()).get();
-		Cab cab = driver.getCab();
-		cab.setDriver(null);
+//		Cab cab = driver.getCab();
+//		cab.setDriver(null);
+//		cabRepository3.save(cab);
 
 		driverRepository3.delete(driver);
-
-		cabRepository3.save(cab);
 	}
 
 	@Override

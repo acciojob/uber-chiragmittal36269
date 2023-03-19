@@ -37,14 +37,14 @@ public class CustomerServiceImpl implements CustomerService {
 		// Delete customer without using deleteById function
 
 		Customer customer = customerRepository2.findById(customerId).get();
-
 		customerRepository2.delete(customer);
 
-		List<TripBooking> tripBookingList = customer.getTripBookingList();
-		for(TripBooking t : tripBookingList)
-		{
-			t.setCustomer(null);
-		}
+		// no need customer parent can handle this
+//		List<TripBooking> tripBookingList = customer.getTripBookingList();
+//		for(TripBooking t : tripBookingList)
+//		{
+//			t.setCustomer(null);
+//		}
 
 	}
 
@@ -54,15 +54,17 @@ public class CustomerServiceImpl implements CustomerService {
 		//Avoid using SQL query
 
 		try {
-			Driver newDriver = new Driver();
+			Driver newDriver = null;
 			boolean marker = true;
 
+			// it return the list in random order.
 			List<Driver> drivers = driverRepository2.findAll();
+			// so I need to find the driver because list is in random order
 			for (Driver d : drivers) {
 				if (d.getCab().getAvailable()) {
+					if(newDriver == null || newDriver.getDriverId() > d.getDriverId())
 					newDriver = d;
 					marker = false;
-					break;
 				}
 			}
 			if (marker) {
@@ -110,12 +112,15 @@ public class CustomerServiceImpl implements CustomerService {
 		TripBooking tripBooking = tripBookingRepository2.findById(tripId).get();
 		tripBooking.setStatus(TripStatus.CANCELED);
 		tripBooking.setBill(0);
-		tripBooking.setDistanceInKm(0);
+
+		//no need to change
+//		tripBooking.setDistanceInKm(0);
 
 		Driver driver = tripBooking.getDriver();
 		driver.getCab().setAvailable(true);
 
-		driverRepository2.save(driver);
+		// no need it will auto affected.
+//		driverRepository2.save(driver);
 
 		tripBookingRepository2.save(tripBooking);
 	}
@@ -130,7 +135,7 @@ public class CustomerServiceImpl implements CustomerService {
 		Driver driver = tripBooking.getDriver();
 		driver.getCab().setAvailable(true);
 
-		driverRepository2.save(driver);
+//		driverRepository2.save(driver);
 
 		tripBookingRepository2.save(tripBooking);
 
